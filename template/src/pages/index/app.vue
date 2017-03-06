@@ -17,10 +17,10 @@
         </sticky>
       </div>
       <img src="../../assets/img/logo.png">
-      <p>{{ date | formatDate('yy-MM-dd') }}</p>
-      <p>{{ str | capitalize }}</p>
-      <p>{{ money | currency({thousand:''}) }}</p>
-      <p>{{ money | number({thousand:' '}) }}</p>
+      <p>\{{ date | formatDate('yy-MM-dd') }}</p>
+      <p>\{{ str | capitalize }}</p>
+      <p>\{{ money | currency({thousand:''}) }}</p>
+      <p>\{{ money | number({thousand:' '}) }}</p>
       <br>
       <div>
         <flexbox>
