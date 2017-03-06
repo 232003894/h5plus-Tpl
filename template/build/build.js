@@ -6,8 +6,10 @@ if (!process.env.NODE_ENV) {
 }
 
 var ora = require('ora')
+var opn = require('opn')
 var rm = require('rimraf')
 var path = require('path')
+var fs = require('fs')
 var chalk = require('chalk')
 var webpack = require('webpack')
 var webpackConfig = require('./webpack.prod.conf')
