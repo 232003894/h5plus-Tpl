@@ -1,54 +1,94 @@
 <template>
   <div id="app" style="height:100%;">
-    <x-header :left-options="{showBack: false}">do not show Back</x-header>
-    <br>
-    <form-preview :header-label="'付款金额'" header-value="¥2400.00" :body-items="list" :footer-buttons="buttons1"></form-preview>
-    <br>
-    <form-preview :header-label="'付款金额'" header-value="¥2400.00" :body-items="list" :footer-buttons="buttons2"></form-preview>
-    <br>
-    <form-preview :header-label="'付款金额'" header-value="¥2400.00" :body-items="list"></form-preview>
+    <view-box bottom="0">
+      <img src="../../../assets/img/logo.png">
+      <flexbox>
+        <flexbox-item>
+          <x-button type="primary" @click.native="testLogin">登录(刷新)</x-button>
+        </flexbox-item>
+        <flexbox-item>
+          <x-button type="primary" @click.native="testLoginNoReload">登录</x-button>
+        </flexbox-item>
+        <flexbox-item>
+          <x-button type="warn" @click.native="testError">webError</x-button>
+        </flexbox-item>
+      </flexbox>
+      权限测试
+      <flexbox>
+        <flexbox-item>
+          <x-button type="primary" @click.native="testPower">权限(必须)</x-button>
+        </flexbox-item>
+        <flexbox-item>
+          <x-button type="primary" @click.native="testPowerNoReload">权限</x-button>
+        </flexbox-item>
+        <flexbox-item>
+        </flexbox-item>
+      </flexbox>
+      窗口
+      <flexbox>
+        <flexbox-item>
+          <x-button type="primary" @click.native="home">home</x-button>
+        </flexbox-item>
+        <flexbox-item>
+          <x-button type="primary" @click.native="hide">hide</x-button>
+        </flexbox-item>
+        <flexbox-item>
+        </flexbox-item>
+      </flexbox>
+      <p v-for="i in 100" v-text="i"></p>
+    </view-box>
   </div>
 </template>
+
 <script>
   import {
-    FormPreview,
-    XHeader
+    ViewBox
+  } from 'app'
+  import {
+    Flexbox,
+    FlexboxItem,
+    XButton
   } from 'vux'
 
   export default {
     name: 'app',
     components: {
-      FormPreview,
-      XHeader
+      ViewBox,
+      Flexbox,
+      FlexboxItem,
+      XButton
     },
-    data() {
-      return {
-        list: [{
-          label: '商品',
-          value: '电动打蛋机'
-        }, {
-          label: '标题标题',
-          value: '名字名字名字'
-        }, {
-          label: '标题标题',
-          value: '很长很长的名字很长很长的名字很长很长的名字很长很长的名字很长很长的名字'
-        }],
-        buttons1: [{
-          style: 'default',
-          text: '辅助操作'
-        }, {
-          style: 'primary',
-          text: '跳转到首页',
-          link: 'index.html'
-        }],
-        buttons2: [{
-          style: 'primary',
-          text: '点击事件',
-          onButtonClick: () => {
-            alert('clicking')
-          }
-        }]
+    mounted() {},
+    methods: {
+      home() {
+        $api.open(window.plus.runtime.appid)
+      },
+      hide() {
+        var wv = plus.webview.getWebviewById('demo_setting')
+        wv && wv.hide()
+      },
+      testLogin: function() {
+        $api.login()
+      },
+      testLoginNoReload: function() {
+        $api.login(false)
+      },
+      testError: function() {
+        $box.webError()
+      },
+      testPower: function() {
+        $api.power(true, () => {
+          console.log('loginCallback')
+        })
+      },
+      testPowerNoReload: function() {
+        $api.power(false, () => {
+          console.log('loginCallback')
+        })
       }
     }
   }
 </script>
+
+<style>
+</style>
