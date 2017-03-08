@@ -182,9 +182,9 @@
     },
     methods: {
       testOpen() {
-        $api.open('demo_setting')
+        $api.open('demo_index')
         // setTimeout(() => {
-        //   var wv = plus.webview.getWebviewById('demo_setting')
+        //   var wv = plus.webview.getWebviewById('demo_index')
         //   wv && wv.hide()
         // }, 5000)
       },

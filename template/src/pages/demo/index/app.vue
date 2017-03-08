@@ -64,7 +64,7 @@
         $api.open(window.plus.runtime.appid)
       },
       hide() {
-        var wv = plus.webview.getWebviewById('demo_setting')
+        var wv = plus.webview.getWebviewById('demo_index')
         wv && wv.hide()
       },
       testLogin: function() {
