@@ -33,7 +33,7 @@ var webpackConfig = {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
         enforce: "pre",
-        include: [resolve('src'), resolve('test')],
+        include: [resolve('src')],
         options: {
           formatter: require('eslint-friendly-formatter')
         }
@@ -47,11 +47,12 @@ var webpackConfig = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        include: [resolve('src')]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
+        include: [resolve('src')],
         query: {
           limit: 10000,
           name: 'img/[name].[ext]?[hash:5]'
@@ -61,6 +62,7 @@ var webpackConfig = {
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',
+        include: [resolve('src')],
         query: {
           limit: 10000,
           name: 'fonts/[name].[ext]?[hash]'
@@ -85,18 +87,7 @@ module.exports = vuxLoader.merge(webpackConfig, {
     name: 'js-parser',
     test: /entry\.js/,
     fn: function (source) {
-      source = _parser(source)
-      var str = ['1', '2']
-      str = `[${str.join(',\n')}]`
-      source = source.replace(`const Vue = () => {}`, `import Vue from 'vue'
-Vue.config.productionTip = false
-import config from '@/config'
-config(Vue)
-// 添加Fastclick移除移动端点击延迟
-const FastClick = require('fastclick')
-FastClick.attach(document.body)
-`)
-      return source
+      return _parser(source)
     }
   }, {
     name: "template-parser",
