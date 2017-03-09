@@ -1,9 +1,22 @@
 var path = require("path")
-webpack = require("webpack")
+var fs = require('fs')
+var webpack = require("webpack")
 
-function resolve(dir) {
-  return path.join(__dirname, '..', dir)
-}
+var basename = 'template.html'
+var pageArr = require('./base/page-entries')(basename)
+var _parm = new Date().valueOf()
+pageArr.forEach((page) => {
+  var _page = path.join(__dirname, '..', 'src', 'pages', page)
+  fs.readFile(_page, 'utf8', (err, data) => {
+    if (!err) {
+      var dataStr = data.toString()
+      dataStr = dataStr.replace(/<script.*src="..\/static\/base\.js.*"><\/script>/, '<script type="text/javascript" src="../static/base.js?' + _parm + '"></script>');
+      fs.writeFile(_page, dataStr)
+    } else {
+      console.log(err);
+    }
+  })
+})
 
 var vendors = [
   'es6-promise',
@@ -19,7 +32,7 @@ module.exports = {
     vendor: vendors
   },
   output: {
-    path: resolve("static"),
+    path: path.join(__dirname, '..', "static"),
     filename: "base.js",
     library: "[name]_[hash]"
   },
