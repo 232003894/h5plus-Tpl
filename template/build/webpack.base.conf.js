@@ -96,8 +96,6 @@ module.exports = vuxLoader.merge(webpackConfig, {
       replaceString: '<view-box ref="cBox"'
     }]
   }, {
-    name: 'inline-manifest'
-  }, {
     name: 'less-theme',
     path: 'src/assets/theme.less'
   }]
