@@ -73,13 +73,17 @@ var webpackConfig = merge(baseWebpackConfig, {
       minChunks: 2
       // minChunks: function (module, count) {
       //   // any required modules inside node_modules are extracted to vendor
-      //   return (
+      //   var temp = (
       //     module.resource &&
       //     /\.js$/.test(module.resource) &&
       //     module.resource.indexOf(
       //       path.join(__dirname, '../node_modules')
       //     ) === 0
       //   )
+      //   if (temp) {
+      //     console.log(module.resource)
+      //   }
+      //   return temp
       // }
     }),
     // copy custom static assets
