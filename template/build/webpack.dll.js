@@ -24,8 +24,7 @@ var vendors = [
   'h5p.js',
   'fastclick',
   'vee-validate',
-  'axios',
-  'vux-xscroll'
+  'axios'
 ]
 module.exports = {
   entry: {
