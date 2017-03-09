@@ -65,7 +65,7 @@ var webpackConfig = {
         loader: 'url-loader',
         include: [resolve('src')],
         query: {
-          limit: 10000,
+          limit: 80000,
           name: 'fonts/[name].[ext]?[hash]'
           // name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
