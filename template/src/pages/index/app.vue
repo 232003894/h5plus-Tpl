@@ -115,6 +115,7 @@
           </flexbox-item>
         </flexbox>
       </div>
+      <radio :options="opts" v-model="vv" ref="ccc" @on-change="change"></radio>
       <p v-for="i in 40" v-text="i"></p>
       <tabbar icon-class="vux-center" slot="bottom">
         <tabbar-item>
@@ -137,7 +138,8 @@
     Tabbar,
     TabbarItem,
     XButton,
-    Sticky
+    Sticky,
+    Radio
   } from 'vux'
 
   export default {
@@ -150,13 +152,16 @@
       Tabbar,
       TabbarItem,
       XButton,
-      Sticky
+      Sticky,
+      Radio
     },
     data() {
       return {
         date: '/Date(1373021259229)/',
         str: 'aBc',
         money: 12312.615,
+        opts: ['china', 'japan'],
+        vv: '',
         json: {
           a: 1,
           b: 2,
@@ -176,13 +181,18 @@
         $api.log('刷新用的 dom onload')
       })
       $box.mounted(() => {
-        this.testAjax()
+        // this.testAjax()
         $api.log('刷新用的 plus ready')
       })
     },
     methods: {
+      change(value) {
+        console.log(value)
+      },
       testOpen() {
-        $api.open('demo_index')
+        this.vv = 'china'
+        // this.$refs.ccc.currentValue = 'china'
+        // $api.open('demo_index')
         // setTimeout(() => {
         //   var wv = plus.webview.getWebviewById('demo_index')
         //   wv && wv.hide()

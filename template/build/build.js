@@ -62,11 +62,13 @@ rm(path.join(config.build.assetsRoot), err => {
       var copyPath = config.build.copyPath[process.platform] + '\\dist'
       rm(copyPath, err => {
         if (err) throw err
-        copyRecursiveSync(path.join(config.build.assetsRoot), copyPath)
-        console.log("复制文件到指定路径：" + copyPath)
-        opn(copyPath, {
-          wait: false
-        })
+        setTimeout(() => {
+          copyRecursiveSync(path.join(config.build.assetsRoot), copyPath)
+          console.log("复制文件到指定路径：" + copyPath)
+          opn(copyPath, {
+            wait: false
+          })
+        }, 200)
       })
     }
   })

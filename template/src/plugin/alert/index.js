@@ -61,8 +61,8 @@ const plugin = {
           opts.dialogTransition = opts.dialogTransition || 'vux-dialog'
 
           opts.onShow = opts.onShow || (() => {})
-          opts._onHide = opts.onHide || (() => {})
-          opts.onHide = hide
+          opts.onHide = opts.onHide || (() => {})
+          opts._onHide = hide
 
           for (let i in opts) {
             $vm[i] = opts[i]
@@ -81,7 +81,7 @@ const plugin = {
       } else {
         options.removeMsgBack('alert', 50)
         $vm.showValue === true && ($vm.showValue = false)
-        $vm._onHide && $vm._onHide($vm)
+        $vm.onHide && $vm.onHide($vm)
       }
     }
 
