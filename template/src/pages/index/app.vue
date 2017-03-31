@@ -17,6 +17,25 @@
         </sticky>
       </div>
       <img src="../../assets/img/logo.png">
+
+      <divider>下拉刷新和上拉加载更多组合</divider>
+      <scroller lock-x scrollbar-y use-pullup use-pulldown height="200px" @on-pullup-loading="loadMore" @on-pulldown-loading="refresh" v-model="status" ref="scroller">
+        <div class="box2">
+          <v-touch tag="p" v-for="i in n" :key="i" @tap="scrollerClick(i)">
+            placeholder \{{i}}
+            <v-touch v-on:tap="scrollerClick2(i)">dddddd \{{i}}</v-touch>
+          </v-touch>
+        </div>
+        <!--pullup slot-->
+        <div slot="pullup" class="xs-plugin-pullup-container xs-plugin-pullup-up" style="position: absolute; width: 100%; height: 40px; bottom: -40px; text-align: center;">
+          <span v-show="status.pullupStatus === 'default'"></span>
+          <span class="pullup-arrow" v-show="status.pullupStatus === 'down' || status.pullupStatus === 'up'">↑</span>
+          <span v-show="status.pullupStatus === 'loading'">
+            <spinner type="ios-small"></spinner>
+          </span>
+        </div>
+      </scroller>
+
       <p>\{{ date | formatDate('yy-MM-dd') }}</p>
       <p>\{{ str | capitalize }}</p>
       <p>\{{ money | currency({thousand:''}) }}</p>
@@ -123,6 +142,14 @@
         </tabbar-item>
       </tabbar>
     </view-box>
+
+    <popup v-model="show2" height="350px">
+      fsdfdsfd
+      <br/> fsdfdsfd
+      <br/> fsdfdsfd
+      <br/>
+    </popup>
+
   </div>
 </template>
 
@@ -139,7 +166,11 @@
     TabbarItem,
     XButton,
     Sticky,
-    Radio
+    Popup,
+    Radio,
+    Scroller,
+    Divider,
+    Spinner
   } from 'vux'
 
   export default {
@@ -153,12 +184,17 @@
       TabbarItem,
       XButton,
       Sticky,
-      Radio
+      Popup,
+      Radio,
+      Scroller,
+      Divider,
+      Spinner
     },
     data() {
       return {
         date: '/Date(1373021259229)/',
         str: 'aBc',
+        show2: false,
         money: 12312.615,
         opts: ['china', 'japan'],
         vv: '',
@@ -166,6 +202,11 @@
           a: 1,
           b: 2,
           c: 'test'
+        },
+        n: 10,
+        status: {
+          pullupStatus: 'default',
+          pulldownStatus: 'default'
         }
       }
     },
@@ -186,13 +227,40 @@
       })
     },
     methods: {
+      scrollerClick(n) {
+        console.log('1：object' + n)
+        this.show2 = true
+      },
+      scrollerClick2(n) {
+        console.log('2：object' + n)
+      },
+      loadMore() {
+        setTimeout(() => {
+          this.n += 10
+          setTimeout(() => {
+            this.$refs.scroller.donePullup()
+          }, 10)
+        }, 2000)
+      },
+      refresh() {
+        setTimeout(() => {
+          this.n = 10
+          this.$nextTick(() => {
+            setTimeout(() => {
+              this.$refs.scroller.donePulldown()
+              this.pullupEnabled && this.$refs.scroller.enablePullup()
+            }, 10)
+          })
+        }, 2000)
+      },
       change(value) {
         console.log(value)
       },
       testOpen() {
-        this.vv = 'china'
+        // this.vv = 'china'
         // this.$refs.ccc.currentValue = 'china'
         // $api.open('demo_index')
+        this.show2 = true
         // setTimeout(() => {
         //   var wv = plus.webview.getWebviewById('demo_index')
         //   wv && wv.hide()
@@ -441,4 +509,5 @@
 </script>
 
 <style lang="less">
+
 </style>

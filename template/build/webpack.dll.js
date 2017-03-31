@@ -21,6 +21,7 @@ pageArr.forEach((page) => {
 var vendors = [
   'es6-promise',
   'vue',
+  'vue-touch',
   'h5p.js',
   'fastclick',
   'vee-validate',

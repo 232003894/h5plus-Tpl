@@ -72,8 +72,8 @@ const plugin = {
           opts.dialogTransition = opts.dialogTransition || 'vux-dialog'
           opts.onShow = opts.onShow || (() => {})
           opts.onHide = opts.onHide || (() => {})
-          opts.onCancel = opts.onCancel || (() => {})
-          opts.onConfirm = opts.onConfirm || (() => {})
+          opts._onCancel = opts.onCancel || (() => {})
+          opts._onConfirm = opts.onConfirm || (() => {})
           for (let i in opts) {
             $vm[i] = opts[i]
           }
@@ -130,15 +130,15 @@ const plugin = {
               var _str = '本页面'
               if (options.isHomePage()) {
                 _str = '本应用'
-                show('是否退出' + _str + '？', {
-                  title: '退出',
-                  confirmText: '退出' + _str,
-                  cancelText: '不了',
-                  onConfirm: () => {
-                    window.location.href = 'about:blank'
-                  }
-                })
               }
+              show('是否退出' + _str + '？', {
+                title: '退出',
+                confirmText: '退出' + _str,
+                cancelText: '不了',
+                onConfirm: () => {
+                  window.location.href = 'about:blank'
+                }
+              })
             }
             return true
           }
