@@ -33,6 +33,10 @@ export default function (vue, _api) {
   // 验证
   vvConfig(vue, window.$api)
 
+  vue.use(VueTouch, {
+    name: 'v-touch'
+  })
+
   // msg插件
   vue.use(ToastPlugin, _api)
   vue.use(AlertPlugin, _api)

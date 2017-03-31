@@ -40,7 +40,7 @@ module.exports = {
       },
       "darwin": {
         name: "google chrome",
-        userDataPath: "/Users/kaifa/Documents/tmp"
+        userDataPath: "/Users/cwb/Documents/tmp"
       }
     },
     index: '/html/index.html',
